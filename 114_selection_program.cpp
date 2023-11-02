@@ -22,7 +22,7 @@ void goodbye();
 
 int main()
 {
-	vector <int> collection{};
+	vector <int> collection{}; // The actual "Number Storage" collection vector
 	char selection; // User menu option selection
 	int amount_numbers{}; // case a: used for amount of numbers user wants to store
 	int add_number{}; // stores the actual number user wants to store and adds it to vector "collection" via pushback
@@ -212,12 +212,3 @@ void goodbye() {
 	system("CLS");
 	cout << "Goodbye..." << endl;
 }
-
-/*void addNumberCheck(char add_number) {
-if (!isdigit(add_number))
-{
-	cout << "Unable to process - Input is not a number" << endl;
-	this_thread::sleep_for(chrono::seconds(3));
-	return;
-}
-}*/
