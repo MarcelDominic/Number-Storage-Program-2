@@ -10,14 +10,14 @@ using namespace std;
 // Delete entries in vector
 
 const void displayMenu();
-void defaultOutput();
-void noNumberInCollection(vector <int> collection);
+char selectionCheck(char& selection);
 void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber);
 void printNumbers(vector <int> collection);
-int averageNumberInCollection(vector <int> collection);
+int averageNumber(vector <int> collection);
+void averageImpossible(vector <int> collection);
 int smallestNumber(vector <int> collection);
 int largestNumber(vector <int> collection);
-char selectionCheck(char& selection);
+void defaultOutput();
 void goodbye();
 
 int main()
@@ -57,10 +57,10 @@ int main()
 			system("CLS");
 			if (collection.size() == 0)
 			{
-				noNumberInCollection(collection);
+				averageImpossible(collection);
 			}
 			else {
-				cout << averageNumberInCollection(collection);
+				cout << averageNumber(collection);
 			}
 			this_thread::sleep_for(chrono::seconds(3));
 			break;
@@ -106,16 +106,17 @@ char selectionCheck(char& selection) {
 		defaultOutput();
 	}
 }
-void defaultOutput() {
+void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber) {
 	system("CLS");
-	cout << "Unknown selection or illegal input - please try again\n" << endl;
-	this_thread::sleep_for(chrono::seconds(2));
-	return;
-}
-void noNumberInCollection(vector <int> collection) {
-	cout << "Unable to calculate the mean - not enough data found" << endl << endl;
-	cout << "Database currently holds " << collection.size() << " element(s)" << endl;
-	cout << "Try adding at least 2 numbers to the collection via main menu first" << endl << endl;
+	for (size_t i = 0; i < amount; ++i)
+	{
+		cout << "Add: ";
+		cin >> actualNumber;
+		collectionToAdd.push_back(actualNumber);
+		cout << endl << "Number * " << actualNumber << " * added to the collection." << endl;
+		cout << "You still wanted to add * " << amount - i - 1 << " * more numbers to the collection." << endl;
+		cout << endl;
+	}
 }
 void printNumbers(vector <int> collection) {
 	if (collection.size() == 0)
@@ -145,19 +146,7 @@ void printNumbers(vector <int> collection) {
 		this_thread::sleep_for(chrono::seconds(4));
 	}
 }
-void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber) {
-	system("CLS");
-	for (size_t i = 0; i < amount; ++i)
-	{
-		cout << "Add: ";
-		cin >> actualNumber;
-		collectionToAdd.push_back(actualNumber);
-		cout << endl << "Number * " << actualNumber << " * added to the collection." << endl;
-		cout << "You still wanted to add * " << amount - i - 1 << " * more numbers to the collection." << endl;
-		cout << endl;
-	}
-}
-int averageNumberInCollection(vector <int> collection) {
+int averageNumber(vector <int> collection) {
 	int total{};
 	for (int number : collection)
 	{
@@ -165,6 +154,11 @@ int averageNumberInCollection(vector <int> collection) {
 	}
 	cout << "Average of all numbers in collection is: ";
 	return total / collection.size();
+}
+void averageImpossible(vector <int> collection) {
+	cout << "Unable to calculate the mean - not enough data found" << endl << endl;
+	cout << "Database currently holds " << collection.size() << " element(s)" << endl;
+	cout << "Try adding at least 2 numbers to the collection via main menu first" << endl << endl;
 }
 int smallestNumber(vector <int> collection) {
 	if (collection.size() == 0)
@@ -207,6 +201,12 @@ int largestNumber(vector <int> collection) {
 		cout << "The largest number in your collection is: ";
 		return largest;
 	}
+}
+void defaultOutput() {
+	system("CLS");
+	cout << "Unknown selection or illegal input - please try again\n" << endl;
+	this_thread::sleep_for(chrono::seconds(2));
+	return;
 }
 void goodbye() {
 	system("CLS");
