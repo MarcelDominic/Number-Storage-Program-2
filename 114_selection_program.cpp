@@ -8,14 +8,14 @@ using namespace std;
 // Missing features:
 // Delete entries in vector
 
-const void displayMenu();
+void displayMenu();
 char selectionCheck(char& selection);
 void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber);
-void printNumbers(vector <int> collection);
-int averageNumber(vector <int> collection);
-void averageImpossible(vector <int> collection);
-int smallestNumber(vector <int> collection);
-int largestNumber(vector <int> collection);
+void printNumbers(const vector <int>& collection);
+int averageNumber(const vector <int>& collection);
+void averageImpossible(const vector <int> collection);
+int smallestNumber(const vector <int>& collection);
+int largestNumber(const vector <int>& collection);
 void defaultOutput();
 void goodbye();
 
@@ -84,7 +84,7 @@ int main()
 	} while (selection != 'Q');
 	return 0;
 }
-const void displayMenu() {
+void displayMenu() {
 	system("CLS");
 	cout << "Welcome to *NUMBER STORAGE*" << endl << endl;
 	cout << "---------------------------------" << endl;
@@ -118,7 +118,7 @@ void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber) {
 		cout << endl;
 	}
 }
-void printNumbers(vector <int> collection) {
+void printNumbers(const vector <int>& collection) {
 	if (collection.size() == 0)
 	{
 		system("CLS");
@@ -146,7 +146,7 @@ void printNumbers(vector <int> collection) {
 		this_thread::sleep_for(chrono::seconds(4));
 	}
 }
-int averageNumber(vector <int> collection) {
+int averageNumber(const vector <int>& collection) {
 	int total{};
 	for (int number : collection)
 	{
@@ -155,12 +155,12 @@ int averageNumber(vector <int> collection) {
 	cout << "Average of all numbers in collection is: ";
 	return total / collection.size();
 }
-void averageImpossible(vector <int> collection) {
+void averageImpossible(const vector <int> collection) {
 	cout << "Unable to calculate the mean - not enough data found" << endl << endl;
 	cout << "Database currently holds " << collection.size() << " element(s)" << endl;
 	cout << "Try adding at least 2 numbers to the collection via main menu first" << endl << endl;
 }
-int smallestNumber(vector <int> collection) {
+int smallestNumber(const vector <int>& collection) {
 	if (collection.size() == 0)
 	{
 		cout << "Unable to determine the smallest number - collection is empty" << endl;
@@ -181,7 +181,7 @@ int smallestNumber(vector <int> collection) {
 		return smallest;
 	}
 }
-int largestNumber(vector <int> collection) {
+int largestNumber(const vector <int>& collection) {
 	if (collection.size() == 0)
 	{
 		cout << "Unable to determine the largest number - collection is empty" << endl;
