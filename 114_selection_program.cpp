@@ -10,12 +10,15 @@ using namespace std;
 
 void displayMenu();
 char selectionCheck(char& selection);
+void handleA(int amount, vector <int>& collection, int actualNumber);
 void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber);
 void printNumbers(const vector <int>& collection);
-int averageNumber(const vector <int>& collection);
-void averageImpossible(const vector <int> collection);
+void handleM(const vector <int> collection);
+int meanOfNumbers(const vector <int>& collection);
 int smallestNumber(const vector <int>& collection);
 int largestNumber(const vector <int>& collection);
+void handleFind(const vector <int>& collection);
+bool find(const vector <int>& collection, int target);
 void defaultOutput();
 void goodbye();
 
@@ -38,31 +41,10 @@ int main()
 			printNumbers(collection);
 			break;
 		case 'A':
-			system("CLS");
-			cout << "Add your numbers to the collection." << endl;
-			cout << "How many numbers do you want to add to the collection? " << endl;
-			cin >> amount_numbers;
-
-			if (cin.fail()) {
-				cin.clear();
-				break;
-			}
-			else
-			{
-				addNumbers(amount_numbers, collection, add_number);
-			}
+			handleA(amount_numbers, collection, add_number);
 			break;
 		case 'M': // Calculate the average of all numbers in collection
-			system("CLS");
-			if (collection.size() == 0)
-			{
-				averageImpossible(collection);
-			}
-			else {
-				cout << averageNumber(collection);
-				cout << endl;
-			}
-			this_thread::sleep_for(chrono::seconds(3));
+			handleM(collection);
 			break;
 		case 'S': // Smallest number in vector
 			system("CLS");
@@ -73,6 +55,9 @@ int main()
 			system("CLS");
 			cout << largestNumber(collection);
 			this_thread::sleep_for(chrono::seconds(3));
+			break;
+		case 'F': // Find a number in the collection
+			handleFind(collection);
 			break;
 		case 'Q': // Quit program
 			goodbye();
@@ -93,6 +78,7 @@ void displayMenu() {
 	cout << "M - Display mean (average) of the collection" << endl;
 	cout << "S - Display smallest number" << endl;
 	cout << "L - Display the largest number" << endl;
+	cout << "F - Find number" << endl;
 	cout << "Q - Quit" << endl << endl;
 	cout << "---------------------------------" << endl;
 	cout << "\nEnter your choice: " << endl << endl;
@@ -104,6 +90,20 @@ char selectionCheck(char& selection) {
 	}
 	else if (isdigit(selection)) {
 		defaultOutput();
+	}
+}
+void handleA(int amount, vector <int>& collection, int actualNumber) {
+	system("CLS");
+	cout << "Add your numbers to the collection." << endl;
+	cout << "How many numbers do you want to add to the collection? " << endl;
+	cin >> amount;
+
+	if (cin.fail()) {
+		cin.clear();
+	}
+	else
+	{
+		addNumbers(amount, collection, actualNumber);
 	}
 }
 void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber) {
@@ -146,7 +146,21 @@ void printNumbers(const vector <int>& collection) {
 		this_thread::sleep_for(chrono::seconds(4));
 	}
 }
-int averageNumber(const vector <int>& collection) {
+void handleM(const vector <int> collection) {
+	system("CLS");
+	if (collection.size() == 0)
+	{
+		cout << "Unable to calculate the mean - not enough data found" << endl << endl;
+		cout << "Database currently holds " << collection.size() << " element(s)" << endl;
+		cout << "Try adding at least 2 numbers to the collection via main menu first" << endl << endl;
+	}
+	else {
+		cout << meanOfNumbers(collection);
+		cout << endl;
+	}
+	this_thread::sleep_for(chrono::seconds(3));
+}
+int meanOfNumbers(const vector <int>& collection) {
 	int total{};
 	for (int number : collection)
 	{
@@ -154,11 +168,6 @@ int averageNumber(const vector <int>& collection) {
 	}
 	cout << "Average of all numbers in collection is: ";
 	return total / collection.size();
-}
-void averageImpossible(const vector <int> collection) {
-	cout << "Unable to calculate the mean - not enough data found" << endl << endl;
-	cout << "Database currently holds " << collection.size() << " element(s)" << endl;
-	cout << "Try adding at least 2 numbers to the collection via main menu first" << endl << endl;
 }
 int smallestNumber(const vector <int>& collection) {
 	if (collection.size() == 0)
@@ -179,6 +188,25 @@ int smallestNumber(const vector <int>& collection) {
 		}
 		cout << "The smallest number in your collection is: ";
 		return smallest;
+	}
+}
+void handleFind(const vector <int>& collection) {
+	system("CLS");
+	int target{};
+	cout << "Enter number to find: ";
+	cin >> target;
+	if (find(collection, target))
+		cout << target << " was found" << endl;
+	else
+		cout << target << " wasn't found" << endl;
+	this_thread::sleep_for(chrono::seconds(3));
+}
+bool find(const vector <int>& collection, int target) {
+	for (auto num : collection)
+	{
+		if (num == target)
+			return true;
+		return false;
 	}
 }
 int largestNumber(const vector <int>& collection) {
