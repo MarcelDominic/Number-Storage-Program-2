@@ -2,7 +2,6 @@
 #include <thread>
 #include <chrono>
 #include <vector>
-#include <cctype>
 
 using namespace std;
 
@@ -23,9 +22,9 @@ void goodbye();
 int main()
 {
 	vector <int> collection{}; // The actual "Number Storage" collection vector
-	char selection; // User menu option selection
-	int amount_numbers{}; // case a: used for amount of numbers user wants to store
-	int add_number{}; // stores the actual number user wants to store and adds it to vector "collection" via pushback
+	char selection; // Menu option user selection
+	int amount_numbers{}; // Case a: used for amount of numbers user wants to store
+	int add_number{}; // Stores the actual number user wants to store and adds it to vector "collection" via pushback
 
 	do
 	{
@@ -61,6 +60,7 @@ int main()
 			}
 			else {
 				cout << averageNumber(collection);
+				cout << endl;
 			}
 			this_thread::sleep_for(chrono::seconds(3));
 			break;
@@ -81,7 +81,7 @@ int main()
 			defaultOutput();
 			break;
 		}
-	} while (selection != 'Q' && selection != 'q');
+	} while (selection != 'Q');
 	return 0;
 }
 const void displayMenu() {
