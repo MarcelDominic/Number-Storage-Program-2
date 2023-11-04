@@ -10,10 +10,10 @@ using namespace std;
 
 void displayMenu();
 char selectionCheck(char& selection);
-void handleA(int amount, vector <int>& collection, int actualNumber);
+void handleAdd(int amount, vector <int>& collection, int actualNumber);
 void addNumbers(int amount, vector<int>& collectionToAdd, int actualNumber);
 void printNumbers(const vector <int>& collection);
-void handleM(const vector <int> collection);
+void handleMean(const vector <int> collection);
 int meanOfNumbers(const vector <int>& collection);
 int smallestNumber(const vector <int>& collection);
 int largestNumber(const vector <int>& collection);
@@ -41,18 +41,16 @@ int main()
 			printNumbers(collection);
 			break;
 		case 'A':
-			handleA(amount_numbers, collection, add_number);
+			handleAdd(amount_numbers, collection, add_number);
 			break;
 		case 'M': // Calculate the average of all numbers in collection
-			handleM(collection);
+			handleMean(collection);
 			break;
 		case 'S': // Smallest number in vector
-			system("CLS");
 			cout << smallestNumber(collection);
 			this_thread::sleep_for(chrono::seconds(3));
 			break;
 		case 'L': // Largest number in vector
-			system("CLS");
 			cout << largestNumber(collection);
 			this_thread::sleep_for(chrono::seconds(3));
 			break;
@@ -92,7 +90,7 @@ char selectionCheck(char& selection) {
 		defaultOutput();
 	}
 }
-void handleA(int amount, vector <int>& collection, int actualNumber) {
+void handleAdd(int amount, vector <int>& collection, int actualNumber) {
 	system("CLS");
 	cout << "Add your numbers to the collection." << endl;
 	cout << "How many numbers do you want to add to the collection? " << endl;
@@ -146,7 +144,7 @@ void printNumbers(const vector <int>& collection) {
 		this_thread::sleep_for(chrono::seconds(4));
 	}
 }
-void handleM(const vector <int> collection) {
+void handleMean(const vector <int> collection) {
 	system("CLS");
 	if (collection.size() == 0)
 	{
@@ -170,6 +168,7 @@ int meanOfNumbers(const vector <int>& collection) {
 	return total / collection.size();
 }
 int smallestNumber(const vector <int>& collection) {
+	system("CLS"); 
 	if (collection.size() == 0)
 	{
 		cout << "Unable to determine the smallest number - collection is empty" << endl;
@@ -210,6 +209,7 @@ bool find(const vector <int>& collection, int target) {
 	}
 }
 int largestNumber(const vector <int>& collection) {
+	system("CLS"); 
 	if (collection.size() == 0)
 	{
 		cout << "Unable to determine the largest number - collection is empty" << endl;
